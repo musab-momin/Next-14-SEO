@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   },
   description: "Come and read my awesome articles!",
   twitter: {
-    card: "summary_large_image",
+    card: "summary_large_image", // this is for setting the size of Opencraft image
   },
 };
 

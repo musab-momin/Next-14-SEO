@@ -1,4 +1,3 @@
-import ClapButton from "@/components/ClapButton";
 import { delay } from "@/lib/utils";
 import { BlogPost, BlogPostsResponse } from "@/models/BlogPost";
 import { Metadata } from "next";
@@ -12,10 +11,8 @@ interface BlogPostPageProps {
 export async function generateStaticParams() {
   const response = await fetch("https://dummyjson.com/posts");
   const { posts }: BlogPostsResponse = await response.json();
-
-  return posts.map(({ id }) => id);
+  return posts?.map(({ id }) => ({ postId: `${id}` }));
 }
-
 // Manually deduplicate requests if not using fetch
 // const getPost = cache(async (postId: string) => {
 //   const post = await prisma.post.findUnique(postId);
@@ -51,13 +48,12 @@ export default async function BlogPostPage({
     notFound();
   }
 
-  await delay(1000);
+  await delay(4000);
 
   return (
     <article className="max-w-prose m-auto space-y-5">
       <h1 className="text-3xl text-center font-bold">{title}</h1>
       <p className="text-lg">{body}</p>
-      <ClapButton />
     </article>
   );
 }
